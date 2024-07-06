@@ -41,6 +41,3 @@ class CoinGameEnv(gym.Env):
                                     else player_2
     def render(self):
         self.grid.render_grid()
-
-
-
