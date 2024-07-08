@@ -1,7 +1,6 @@
 import numpy as np
 from taxi_env_extended import TaxiEnvExtended
 import matplotlib.pyplot as plt
-import pickle
 
 def epsilon_greedy_policy(state, Q, env, epsilon=0.1):
     explore = np.random.binomial(1, epsilon)
@@ -66,15 +65,20 @@ def run_learning(alpha, gamma, epsilon, epsilon_decay, num_episodes=1000):
     print(f"Average Penalties per Episode: {np.mean(q_learning_penalties):.2f}")
     print(f"Average Steps per Episode: {np.mean(q_learning_steps):.2f}")
 
-    return agent
+    return agent.episode_rewards, agent.steps_per_episode, agent.penalties_per_episode
 
+
+# Hiperparámetros a probar
 alpha = 0.6
-gamma = 0.8
-epsilon = 1.0
-epsilon_decay = 0.8
-episodes = 21000
+gammas = [0.95, 0.9, 0.85, 0.8]
+epsilons = [1.0]
+epsilon_decays = [0.8, 0.9, 0.995]
+episodes_range = range(1000, 21001, 4000)
 
-best_agent = run_learning(alpha, gamma, epsilon, epsilon_decay, episodes) 
-
-with open('best_q_agent.pkl', 'wb') as f:
-    pickle.dump(best_agent.Q, f)
+results = []
+for gamma in gammas:
+    for epsilon in epsilons:
+        for epsilon_decay in epsilon_decays:
+            for num_episodes in episodes_range:
+                result = run_learning(alpha, gamma, epsilon, epsilon_decay, num_episodes)
+                results.append((result, gamma))

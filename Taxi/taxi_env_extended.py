@@ -1,6 +1,4 @@
-
 from gymnasium.envs.toy_text.taxi import TaxiEnv
-
 
 class TaxiEnvExtended(TaxiEnv):
     def __init__(self, render_mode="rgb_array", *args, **kwargs):
@@ -17,5 +15,3 @@ class TaxiEnvExtended(TaxiEnv):
     def reset(self, *args, **kwargs):
         self.actual_steps = 0
         return super().reset(*args, **kwargs)
-    
-    
