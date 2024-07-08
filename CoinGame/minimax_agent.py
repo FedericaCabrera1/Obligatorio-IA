@@ -1,3 +1,4 @@
+import pickle
 from agent import Agent
 from board import Board
 import math
@@ -52,3 +53,12 @@ class MinimaxAgent(Agent):
         max_row_length = max(sum(row) for row in board.grid)
         return -(coin_count + max_row_length)
 
+
+    def save_agent(self, file_name):
+        with open(file_name, 'wb') as file:
+            pickle.dump(self, file)
+
+    @classmethod
+    def load_agent(cls, file_name):
+        with open(file_name, 'rb') as file:
+            return pickle.load(file)

@@ -26,4 +26,7 @@ if __name__ == "__main__":
     agent1 = MinimaxAgent(player=1)
     agent2 = RandomAgent(player=2)
     winner = play_vs_other_agent(env, agent1, agent2, render=True)
-    print(f"El ganador es el jugador: {winner}")
+    agent1.save_agent('minimax_agent.pkl')
+    print("Agente guardado exitosamente.")
+    loaded_agent = MinimaxAgent.load_agent('minimax_agent.pkl')
+    print("Agente cargado exitosamente.")
